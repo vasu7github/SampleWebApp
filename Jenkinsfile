@@ -1,24 +1,10 @@
 pipeline { 
-    agent any 
-    options {
-        skipStagesAfterUnstable()
-    }
+    agent any
     stages {
-        stage('Build') { 
+        stage('SCM') { 
             steps { 
-                sh 'make' 
+                git changelog: false, poll: false, url: 'https://github.com/vasu7github/SampleWebApp.git' 
             }
         }
-        stage('Test'){
-            steps {
-                sh 'make check'
-                junit 'reports/**/*.xml' 
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'make publish'
-            }
-        }
-    }
+   }
 }
